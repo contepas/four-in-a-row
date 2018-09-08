@@ -17,4 +17,23 @@ class Game{
 
         return players;
     }
+
+    /**
+     * @return {object} the player object whose active property is equal to true
+     */
+    get activePlayer(){
+        if(this.players[0].active){
+            return this.players[0];
+        } else {
+            return this.players[1];
+        }
+    }
+
+    /**
+     * Start the game
+     * 
+     */
+    startGame(){
+
+    }
 }
