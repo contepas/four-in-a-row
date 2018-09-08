@@ -5,6 +5,19 @@ class Game{
         this.ready = false
     }
 
+
+    //=== GET/SET =========
+
+    /**
+     * @return {object} the player object whose active property is equal to true
+     */
+    get activePlayer(){
+        return this.players.find(player => player.active)
+    }
+
+
+    //=== METHODS =========
+    
     /**
      * Create 2 players
      * @return {array} an array with 2 player object
@@ -16,17 +29,6 @@ class Game{
         ];
 
         return players;
-    }
-
-    /**
-     * @return {object} the player object whose active property is equal to true
-     */
-    get activePlayer(){
-        if(this.players[0].active){
-            return this.players[0];
-        } else {
-            return this.players[1];
-        }
     }
 
     /**

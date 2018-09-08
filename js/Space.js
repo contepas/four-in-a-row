@@ -8,6 +8,9 @@ class Space{
         this.token = null;
     }
 
+
+    //=== METHODS =========
+
     /**
      * Draw SVG space in the HTML
      */

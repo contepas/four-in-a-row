@@ -5,6 +5,9 @@ class Board{
         this.spaces = this.createSpaces();
     }
 
+
+    //=== METHODS =========
+    
     /**
      * Generate 2 dimensional array of spaces
      * @return {array} array of spaces

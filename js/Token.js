@@ -5,9 +5,18 @@ class Token {
         this.dropped = false;
     }
 
+
+    //=== GET/SET =========
+
+    /** 
+     * call the method to draw the SVG HTML token on the page
+     */
     get htmlToken(){
-        return this.drawHTMLToken();
+        this.drawHTMLToken();
     }
+
+
+    //=== METHODS =========
 
     /**
      * Draw the HTML token 
