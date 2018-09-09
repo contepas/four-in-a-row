@@ -10,3 +10,12 @@ beginGame.addEventListener('click', function() {
     this.style.display = 'none';
     document.getElementById('play-area').style.opacity = '1';
 });
+
+/** 
+ * Listen for keyboard presses
+ */
+
+document.addEventListener('keydown', function(event){
+    game.handeKeydown(event);
+    //console.log(event.key);
+});
