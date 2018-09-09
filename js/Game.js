@@ -24,8 +24,8 @@ class Game{
      */
     createPlayers(){
         const players = [
-            new Player("Player 1", "#e15258", 1, true,),
-            new Player("Player 2", "#e59a13", 1)
+            new Player("Player 1", 1, "#e15258", true,),
+            new Player("Player 2", 1, "#e59a13")
         ];
 
         return players;
@@ -33,9 +33,10 @@ class Game{
 
     /**
      * Start the game
-     * 
      */
     startGame(){
-
+        this.board.drawHTMLBoard();
+        this.activePlayer.activeToken.drawHTMLToken();
+        this.ready = true;
     }
 }

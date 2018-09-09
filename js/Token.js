@@ -1,5 +1,5 @@
 class Token {
-    constructor(owner, index){
+    constructor(index, owner){
         this.owner = owner;
         this.id = `token-${index}-${owner.id}`;
         this.dropped = false;
@@ -8,11 +8,12 @@ class Token {
 
     //=== GET/SET =========
 
-    /** 
-     * call the method to draw the SVG HTML token on the page
+   /** 
+     * Gets associated HTML token.
+     * @return  {element}   THML element associated with token object.
      */
-    get htmlToken(){
-        this.drawHTMLToken();
+    get htmlToken() {
+        return document.querySelector(`#${this.id}`);
     }
 
 
@@ -29,5 +30,6 @@ class Token {
         token.setAttribute("id", this.id);
         token.setAttribute("class", "token");
         token.style.backgroundColor = this.owner.color;
+        console.log(this.id);
     }
 }

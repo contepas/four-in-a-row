@@ -15,15 +15,15 @@ class Board{
     createSpaces(){
         const spaces = [];
 
-        for(let x=0; x<this.rows; i++){
+        for(let x=0; x<this.cols; x++){
             const col = [];
 
-            for(let y=0; y<this.cols; i++){
+            for(let y=0; y<this.rows; y++){
                 const space = new Space(x,y);
                 col.push(space);
             }
 
-            spaces.push(column);
+            spaces.push(col);
         }
 
         return spaces;
