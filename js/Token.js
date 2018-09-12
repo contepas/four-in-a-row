@@ -9,7 +9,7 @@ class Token {
 
     //=== GET/SET =========
 
-   /** 
+    /** 
      * Gets associated HTML token.
      * @return  {element}   THML element associated with token object.
      */
@@ -18,9 +18,9 @@ class Token {
     }
 
     /** 
-    * Gets left offset of html element.
-    * @return  {number}   Left offset of token object's htmlToken.
-    */
+     * Gets left offset of html element.
+     * @return  {number}   Left offset of token object's htmlToken.
+     */
     get offsetLeft() {
         return this.htmlToken.offsetLeft;
     }
@@ -60,5 +60,18 @@ class Token {
             this.htmlToken.style.left = this.offsetLeft + 76;
             this.columnLocation += 1;
         }   
+    }
+
+    /** 
+     * Drops html token into targeted board space.
+     * @param   {Object}   target - Targeted space for dropped token.
+     * @param   {function} reset  - The reset function to call after the drop animation has completed.
+     */
+    drop(target, reset) {
+        this.dropped = true;
+        
+        $(this.htmlToken).animate({
+            top: (target.y * target.diameter)
+        }, 750, 'easeOutBounce', reset);
     }
 }

@@ -25,7 +25,7 @@ class Board{
 
             spaces.push(col);
         }
-
+        console.dir(spaces);
         return spaces;
     }
 
