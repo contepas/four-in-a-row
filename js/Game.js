@@ -95,23 +95,27 @@ class Game{
         let veWin = 0;
         let d1Win = 0;
         let d2Win = 0;
-        console.log(spaces);
+        console.log(spaces[target.x][target.y]);
+        //console.log(spaces[target.x][4]);
+
 
         //vertical check
-        for(let y = target.y; y < board.cols; ++y){
-            if(spaces[target.x,y].owner === owner){
-                win += 1;
-            } else{
-                break;
-            }
-        }
-        for(let y = target.y; y >= 0; --y){
-            if(spaces[target.x,y].owner === owner){
+        // for(let y = target.y-1; y >=0; y--){
+        //     if(spaces[target.x][y].owner === owner){
+        //         console.log("1");
+        //         win += 1;
+        //     } else{
+        //         break;
+        //     }
+        // }
+        for(let y = target.y+1; y < board.rows; y++){
+            if(spaces[target.x][y].owner === owner){
                 win += 1;
             } else{
                 break
             }
         }
+
         if(win >= 3){
             return true;
         }else{
@@ -119,81 +123,111 @@ class Game{
         }
 
         //orizzontal check
-        for(let x = target.x; x < board.rows; ++x){
-            if(spaces[x,target.y].owner === owner){
-                win += 1;
-            } else{
-                break;
-            }
+        let direction = "forward";
+        let x = target.x+1;
+        while(direction !== "end-road"){
+
+            if (direction === "forward"){
+
+                //console.log(`x: ${x} - cols: ${board.rows}`);
+                if (x < board.cols && spaces[x][target.y].owner === owner){
+                    win+=1;
+                    x++;
+                } else {
+                    x = target.x-1;
+                    direction = "back";
+                }
+                
+            } else if(direction === "back"){
+
+                if (x >= 0 && spaces[x][target.y].owner === owner){
+                    win+=1;
+                    x--;
+                } else {
+                    direction = "end-road";
+                }
+            }    
         }
-        for(let x = target.x; x >= 0; --x){
-            if(spaces[x,target.y].owner === owner){
-                win += 1;
-            } else{
-                break
-            }
-        }
-        if(win >= 3){
+
+        if(win > 2){
             return true;
         }else{
             win = 0;
         }
 
-        //diagonal check
-        for(let x = 0; x <4; ++x){
-            try{
-                if(spaces[target.x+x,target.y+x].owner === owner){
-                    win += 1;
-                } else{
-                    x=4;
+        //Diagonal Check
+        direction = "forward";
+        x = target.x+1;
+        let y = target.y+1;
+        while(direction !== "end-road"){
+
+            if (direction === "forward"){
+
+                if (x < board.cols && y < board.rows && spaces[x][y].owner === owner){
+                    //console.log(`x: ${x} - y: ${y} - cols: ${board.cols} - rows: ${board.rows}`);
+                    win+=1;
+                    //console.log(win);
+                    x++;
+                    y++
+                } else {
+                    x = target.x-1;
+                    y = target.y-1;
+                    direction = "back";
                 }
-            }catch(e){
-                x = 4;
-            }
-        }
-        
-        for(let x = 0; x > 0; --x){
-            try{
-                if(spaces[target.x-x,target.y-x].owner === owner){
-                    win += 1;
-                } else{
-                    x = 0;
+                
+            } else if(direction === "back"){
+
+                if (x >= 0 && y >= 0 && spaces[x][y].owner === owner){
+                    win+=1;
+                    //console.log(win);
+                    x--;
+                    y--;
+                } else {
+                    direction = "end-road";
                 }
-            }catch(e){
-                x=0;
-            }
+            }    
         }
-        if(win >= 3){
+
+        if(win > 2){
             return true;
         }else{
             win = 0;
         }
 
-        //diagonal 2 check
-        for(let x = 0; x <4; ++x){
-            try{
-                if(spaces[target.x+x,target.y-x].owner === owner){
-                    win += 1;
-                } else{
-                    x=4;
+        //Diagonal 2 Check
+        direction = "forward";
+        x = target.x+1;
+        y = target.y-1;
+        while(direction !== "end-road"){
+
+            if (direction === "forward"){
+
+                if (x < board.cols && y >=0 && spaces[x][y].owner === owner){
+                    console.log(`x: ${x} - y: ${y} - cols: ${board.cols} - rows: ${board.rows}`);
+                    win+=1;
+                    console.log(win);
+                    x++;
+                    y--
+                } else {
+                    x = target.x-1;
+                    y = target.y+1;
+                    direction = "back";
                 }
-            }catch(e){
-                x = 4;
-            }
-        }
-        
-        for(let x = 0; x > 0; --x){
-            try{
-                if(spaces[target.x-x,target.y+x].owner === owner){
-                    win += 1;
-                } else{
-                    x = 0;
+                
+            } else if(direction === "back"){
+                console.log(`x: ${x} - y: ${y} - cols: ${board.cols} - rows: ${board.rows}`);
+                if (x >= 0 && y < board.rows && spaces[x][y].owner === owner){
+                    win+=1;
+                    console.log(win);
+                    x--;
+                    y++;
+                } else {
+                    direction = "end-road";
                 }
-            }catch(e){
-                x=0;
-            }
+            }    
         }
-        if(win >= 3){
+
+        if(win > 2){
             return true;
         }else{
             win = 0;
@@ -201,6 +235,7 @@ class Game{
 
         return false;
     }
+    
 
     /** 
      * Switches active player. 
@@ -222,7 +257,7 @@ class Game{
      */
     gameOver(message){
         const gameOver = document.querySelector('#game-over');
-        gameOver.syle.display = "block";
+        gameOver.style.display = "block";
         gameOver.textContent = message;
     }
 
@@ -241,7 +276,6 @@ class Game{
             if(this.activePlayer.checkTokens()){
                 this.activePlayer.activeToken.drawHTMLToken();
                 this.ready = true;
-                console.log(this.activePlayer);
             }else{
                 this.gameOver(`GameOver! no moves available`);
             }
