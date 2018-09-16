@@ -1,0 +1,45 @@
+extends layout
+block content
+  //
+    Start Game Button
+    When a player clicks this button, the game will begin
+  button#begin-game
+    | Start
+  //
+    #game-scene: container for entire play area
+    #play-area: container for the board
+    .stand-container: the board's vertical support stands
+  #game-scene
+    #play-area
+      .stand-container.left
+        .stand-leg
+        .stand-foot
+        .stand-attachment.left
+      //
+        #game-over will eventually display a game over message to the players
+      #game-over
+      //
+        #game-board-underlay: container for HTML tokens
+      #game-board-underlay
+        #token(data-column='0')
+      //
+        SVGs were used to create the board and the "holes" for the Spaces
+      svg#game-board
+        defs
+          //
+            #mask: container for Space SVGs
+          mask#mask(x='0', y='0', width='548', height='472')
+            rect(x='0', y='0', height='472', width='548', fill='white')
+        rect#board-back(x='0', y='0', width='548', height='472', mask='url(#mask)', fill-opacity='1', fill='#5FCF80')
+      //
+        .stand-container: the board's vertical support stands
+      .stand-container.right
+        .stand-leg
+        .stand-foot
+        .stand-attachment.right
+      div(style='clear:both')
+  //
+    .table: so the board doesn't look like it's floating
+  .table
+  
+

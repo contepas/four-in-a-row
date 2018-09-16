@@ -1,0 +1,25 @@
+{
+  "name": "four-in-a-row-mpe",
+  "version": "1.0.0",
+  "description": "The multiplayer version of the classic game \"Four in a Row\"",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contepas/four-in-a-row.git"
+  },
+  "author": "Pasquale Conte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/contepas/four-in-a-row/issues"
+  },
+  "homepage": "https://github.com/contepas/four-in-a-row#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "pug": "^2.0.3"
+  }
+}
