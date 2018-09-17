@@ -4,7 +4,15 @@ block content
     Start Game Button
     When a player clicks this button, the game will begin
   button#begin-game
-    | Start
+    | Split Screen
+  //
+    Start Game Button
+    When a player clicks this button, the multiplayer game will begin
+    you can play with other players that are already logged in.
+    If you are not logged in, you will redirecto to the registration page
+  a(href="multiplayer")
+    button#multiplayer
+      | Multiplayer
   //
     #game-scene: container for entire play area
     #play-area: container for the board
