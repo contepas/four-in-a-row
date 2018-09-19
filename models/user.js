@@ -8,8 +8,9 @@ const UserSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    name: {
+    gamertag: {
         type: String,
+        unique: true,
         required: true,
         trim: true
     },
@@ -18,6 +19,27 @@ const UserSchema = new mongoose.Schema({
         require: true,
     }
 });
+
+//authentication
+UserSchema.statics.authenticate = function (gamertag, password, callback){
+    User.findOne({gamertag: gamertag})
+        .exec(function (error, user) {
+            if (error){
+                return callback(error);
+            } else if ( !user){
+                const err = new Error('Gamer not found');
+                err.status = 401;
+                return callback(err);
+            }
+            bcrypt.compare(password, user.password, function(error, result) {
+                if (result === true){
+                    return callback(null, user);
+                } else {
+                    return callback();
+                }
+            });
+        });
+};
 
 //call pre-method on the UserSchema to hash password befora sving into database
 UserSchema.pre('save', function(next){

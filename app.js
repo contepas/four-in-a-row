@@ -1,7 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const app = express();
+
+//use sessions fro traking logins
+app.use(session({
+  secret: 'love for gaming',
+  resave: true,
+  saveUninitialized: false
+}));
 
 //mongodb connection
 mongoose.connect('mongodb://localhost:27017/fiarusers', { useNewUrlParser: true });

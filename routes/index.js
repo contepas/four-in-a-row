@@ -2,14 +2,54 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
+// GET /profile
+router.get('/profile', (req, res, next) =>{
+  if (! req.session.userId){
+    res.redirect('/login');
+  }
+  User.findById(req.session.userId)
+      .exec(function (error, user){
+        if (error){
+          return next(error);
+        } else {
+          return res.render('profile', {title: 'Profile', gamertag: user.gamertag});
+        }
+      })
+});
+
+// GET /login
+router.get('/login', (req, res, next) => {
+  return res.render('login', {title: 'Log In'});
+});
+
+// POST /login
+router.post('/login', (req, res, next) => {
+  if(req.body.gamertag && req.body.password){
+      User.authenticate(req.body.gamertag, req.body.password, function(error, user){
+        //??
+        if(error || !user){ 
+          const err = new Error('Wrong email or password'); 
+          err.status = 401;
+          next(err);
+        }
+        req.session.userId = user._id;
+        return res.redirect('/profile');
+      });
+    } else {
+      const err = new Error('Email and password required');
+      err.status = 401;
+      return next(err);
+    }
+})
+
 // GET /register
 router.get('/register', (req, res, next) => {
   return res.render('register', { title: 'Sign Up'});
-})
+});
 
 // POST /register
 router.post('/register', (req, res, next) => {
-  if (req.body.name &&
+  if (req.body.gamertag &&
     req.body.email &&
     req.body.password &&
     req.body.confirmPassword){
@@ -23,7 +63,7 @@ router.post('/register', (req, res, next) => {
       //create object with form input
       const userData = {
         email: req.body.email,
-        name: req.body.name,
+        gamertag: req.body.gamertag,
         password: req.body.password
       };
 
@@ -32,6 +72,7 @@ router.post('/register', (req, res, next) => {
         if (error) {
           return next(error)
         } else {
+          req.session.userId = user._id;
           return res.redirect('/profile');
         }
       });
@@ -41,7 +82,7 @@ router.post('/register', (req, res, next) => {
     err.status = 400;
     return next(err);
   }
-})
+});
 
 // GET /
 router.get('/', function(req, res, next) {
@@ -51,7 +92,7 @@ router.get('/', function(req, res, next) {
 // GET /multiplayer
 router.get('/multiplayer', (req, res, next) => {
   res.redirect(`/register`);
-})
+});
 
 // GET /about
 router.get('/about', function(req, res, next) {
