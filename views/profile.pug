@@ -2,4 +2,13 @@ extends layout
 
 block content
     h1 Hello #{gamertag}!
-    h2 This is your profile... I know... is sad
+    h2 This is your profile... I know... that's a bit sad
+    p click on the play button to start a match versus another player
+    div
+        a(href="/multiplayer")
+            button Multiplayer
+    div
+        p or go to the home page
+        a(href="/")
+            button Home
+    

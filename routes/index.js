@@ -42,6 +42,20 @@ router.post('/login', (req, res, next) => {
     }
 })
 
+// GET /logout
+router.get('/logout', (req, res, next) => {
+  if (req.session) {
+    //delete session
+    req.session.destroy(function(err){
+      if (err){
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
+})
+
 // GET /register
 router.get('/register', (req, res, next) => {
   return res.render('register', { title: 'Sign Up'});
@@ -91,7 +105,11 @@ router.get('/', function(req, res, next) {
 
 // GET /multiplayer
 router.get('/multiplayer', (req, res, next) => {
-  res.redirect(`/register`);
+  if (! req.session.userId){
+    res.redirect('/login');
+  } else {
+    res.send(`Online Multiplayer`);
+  }
 });
 
 // GET /about

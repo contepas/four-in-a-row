@@ -1,6 +1,19 @@
 extends layout
 block content
   //
+    Login Button
+
+  
+  if !currentUser
+    a(href="/login") 
+      button#login-logout 
+        | Login
+  else
+    a(href="/logout") 
+      button#login-logout
+        | Log out
+    
+  //
     Start Game Button
     When a player clicks this button, the game will begin
   button#begin-game
